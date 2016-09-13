@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>yudian </title>
+</head>
+<body>
+	<canvas id="canvas" width="450" height="800"></canvas>
+	<script type="text/javascript">
+		var canvas = document.getElementById('canvas');
+		var ctx = canvas.getContext('2d');
+		var cw = canvas.width;
+		var ch = canvas.height;
+
+		// 随机函数
+		function rnd(min,max){
+			return parseInt(Math.random()*(max-min)+min);
+		}
+
+		function Rain(){
+			this.x = rnd(0,cw);
+			this.y = 0;
+			this.deltaX = 1;
+			this.deltaY = rnd(4,10);
+			this.color = 'white';
+			this.long = 8;
+		}
+		Rain.prototype.draw = function(){
+			ctx.save();
+			ctx.lineWidth = 2;
+			ctx.strokeStyle = this.color;
+			ctx.beginPath();
+			ctx.moveTo(this.x,this.y,);
+			ctx.lineTo(this.x,this.y+this.deltaY);
+			ctx.strke();
+			ctx.restpre();
+			this.update();
+		}
+		Rain.prototype.update = function(){
+			this.x += this.deltaX;
+			this.y += this.deltaY;
+		}
+
+		var rains = [ ];
+
+		function rain(){
+			canvas.width = canvas.width;
+			if(rains.length < 250){
+				rains.push(new Rain());
+			}
+			for (var i = 0; i < rains.length; i++) {
+				var spot = rains[i];
+				spot.draw();
+				if(spot.y > ch){
+					rains[i] = new Rain();
+				}
+			}
+			requestAnimationFrame(rain);
+		}
+			requestAnimationFrame(rain);
+
+
+
+
+
+
+	</script>
+</body>
+</html>
